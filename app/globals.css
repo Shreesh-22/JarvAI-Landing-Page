@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Rye&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-night-bg text-white font-inter;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(246, 198, 78, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(246, 198, 78, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(246, 198, 78, 0.1) 0%, transparent 50%);
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+@layer components {
+  .text-3d {
+    text-shadow: 
+      4px 4px 0px theme('colors.cowboy.shadow'),
+      8px 8px 0px theme('colors.cowboy.shadow'),
+      12px 12px 0px theme('colors.cowboy.shadow'),
+      16px 16px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .text-3d-sm {
+    text-shadow: 
+      2px 2px 0px theme('colors.cowboy.shadow'),
+      4px 4px 0px theme('colors.cowboy.shadow'),
+      6px 6px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-desert-front to-desert-mid1 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-star-gold;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-2 border-star-gold text-star-gold px-8 py-4 rounded-full font-semibold text-lg hover:bg-star-gold hover:text-night-bg transition-all duration-300 hover:scale-105;
+  }
+
+  .card-western {
+    @apply bg-wood-sign/20 backdrop-blur-sm border border-wood-sign/30 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+}
+
+@layer utilities {
+  .parallax-slow {
+    transform: translateY(var(--parallax-slow, 0px));
+  }
+  
+  .parallax-medium {
+    transform: translateY(var(--parallax-medium, 0px));
+  }
+  
+  .parallax-fast {
+    transform: translateY(var(--parallax-fast, 0px));
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .parallax-slow,
+  .parallax-medium,
+  .parallax-fast {
+    transform: none !important;
+  }
+}
